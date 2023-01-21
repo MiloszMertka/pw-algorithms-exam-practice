@@ -59,7 +59,7 @@ public class BinarySearchTree {
 	}
 
 	private Node remove(Node node, Comparable data) {
-		if (root == null) {
+		if (node == null) {
 			return null;
 		}
 
