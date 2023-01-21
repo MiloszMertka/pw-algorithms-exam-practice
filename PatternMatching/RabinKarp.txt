@@ -1,0 +1,29 @@
+List<Integer> RabinKarp(String pattern, String text) {
+	List<Integer> results = new ArrayList<>();
+	
+	int m = pattern.size();
+	int n = text.size();
+
+	int patternHash = calculatePatternHash(pattern);
+	int windowHash = calculateWindowHash(text.substring(0, m));
+
+	for (int i = 0;  i <= n - m; i++) {
+		if (patternHash == windowHash) {
+			for (int j = 0; j < m; j++) {
+				if (text.charAt(i + j) != pattern.charAt(j)) {
+					break;
+				}
+			}
+
+			if (j == m) {
+				results.add(i);
+			}
+		}
+
+		if (i < n - m) {
+			windowHash = calculateWindowHash(text.substring(i, i + m));
+		}
+	}
+
+	return results;
+}
