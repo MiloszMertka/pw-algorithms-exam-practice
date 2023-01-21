@@ -1,0 +1,21 @@
+Set<Vertex> DFS(Graph graph) {
+	Set<Vertex> visited = new HashSet<>();
+	Stack<Vertex> stack = new Stack<>();
+
+	Vertex firstVertex = getFirstVertexOfGraph(graph);
+	stack.push(firstVertex);
+
+	while (!stack.empty()) {
+		Vertex vertex = stack.pop();
+		visited.add(vertex);
+
+		List<Vertex> neighbours = getNeighbours(vertex, graph);
+		for (Vertex neighbour : neighbours) {
+			if (!visited.contains(neighbour)) {
+				stack.push(neighbour);
+			}
+		}
+	}
+
+	return visited;
+}

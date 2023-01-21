@@ -1,0 +1,22 @@
+Set<Vertex> BFS(Graph graph) {
+	Set<Vertex> visited = new HashSet<>();
+	Queue<Vertex> queue = new FIFOQueue<>();
+
+	Vertex firstVertex = getFirstVertexOfGraph(graph);
+	visited.add(firstVertex);
+	queue.enqueue(firstVertex);
+
+	while (!queue.empty()) {
+		Vertex vertex = queue.dequeue();
+
+		List<Vertex> neighbours = getNeighbours(vertex, graph);
+		for (Vertex neighbour : neighbours) {
+			if (!visited.contains(neighbour)) {
+				visited.add(neighbour);
+				queue.enqueue(neighbour);
+			}
+		}
+	}
+
+	return visited;
+}

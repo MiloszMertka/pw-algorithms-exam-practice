@@ -1,0 +1,36 @@
+Pair<Double[], Vertex[]> Dijkstra(Graph graph, Vertex source) {
+	Double[] distances = new Double[graph.size()];
+	Vertex[] predecessors = new Vertex[graph.size()];
+	Set<Vertex> visited = new HashSet<>();
+	PriorityQueue<Vertex> pq = new MinPriorityQueue<>();
+	
+	for (Vertex vertex : graph.getVertices()) {
+		distances[vertex.getIndex()] = Double.INFINITY;
+		predecessors[vertex.getIndex()] = null;
+
+		if (vertex != source) {
+			pq.put(vertex);
+		}
+	}
+
+	distances[source.getIndex()] = 0;
+
+	while (!pq.isEmpty())  {
+		Vertex vertex = pq.pop();
+		List<Vertex> neighbours = getNeighbours(vertex, graph);
+
+		for (Vertex neighbour : neighbours) {
+			if (!visited.contains(neighbour)) {
+				visited.add(neighbour);
+				Double distance = distances[vertex.getIndex()] + edgeWeight(vertex, neighbour, graph);
+
+				if (distance < distances[neighbour.getIndex()]) {
+					distances[neighbour.getIndex()] = distance;
+					predecessors[neighbour.getIndex()] = vertex;
+				}
+			}
+		}
+	}
+
+	return new Pair<Double[], Vertex[]>(distances, predecessors);
+}
