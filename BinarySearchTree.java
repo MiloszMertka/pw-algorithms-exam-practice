@@ -96,7 +96,7 @@ public class BinarySearchTree {
 	private static class Node {
 		private Comparable data;
 		private Node leftChild;
-		private Node rightChild;a
+		private Node rightChild;
 
 		public Node(Comparable data) {
 			this.data = data;
