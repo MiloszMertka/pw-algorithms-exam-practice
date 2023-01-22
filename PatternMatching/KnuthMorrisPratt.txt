@@ -1,0 +1,26 @@
+List<Integer> KnuthMorrisPratt(String pattern, String text) {
+	List<Integer> results = new ArrayList<>();
+
+	int m = pattern.size();
+	int n = text.size();
+
+	int[] p = computePostfixFunction(pattern);
+
+	int q = 0;
+	for (int i = 0; i < n; i++) {
+		while (q > 0 && pattern.charAt(q + 1) != text.charAt(i)) {
+			q = p[q];
+		}
+
+		if (pattern.charAt(q + 1) == text.charAt(i)) {
+			q++;
+		}
+
+		if (q == m) {
+			results.add(i - m);
+			q = p[q];
+		}
+	}
+
+	return results;
+}

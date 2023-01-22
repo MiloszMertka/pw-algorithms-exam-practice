@@ -1,0 +1,25 @@
+List<Integer> BoyerMoore(String pattern, String text) {
+	List<Integer> results = new ArrayList<>();
+
+	int m = pattern.size();
+	int n = text.size();
+
+	int[] bmGs = preBmGoodSuffixShift(pattern);
+	int[] bmBc = preBmBadCharacterShift(pattern);
+
+	int i = 0;
+	int j;
+	while (i <= n - m) {
+		for (j = m - 1; j >= 0 && pattern.charAt(j) == text.charAt(i + j); j--)
+			;
+		
+		if (j < 0) {
+			results.add(i);
+			i += bmGs[0];
+		} else {
+			i += Math.max(bmGs[j], bmBc[text.charAt(i + j)] - m + 1 + j);
+		}
+	}
+
+	return results;
+}
